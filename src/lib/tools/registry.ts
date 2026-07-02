@@ -1,5 +1,205 @@
-export const tools = [
+import type { Tool } from "@/types/tool";
 
-    title: "JWT Generator + Decorder"
+export const tools: Tool[] = [
+    {
+        title: "JWT Generator + Decoder",
+        slug: "jwt",
+        category: "Security",
+        description: "Generate, decode, and inspect JSON Web Tokens.",
+        tags: ["jwt", "auth", "token"],
+    },
+    {
+        title: "Password Generator",
+        slug: "password-generator",
+        category: "Security",
+        description: "Generate secure random passwords.",
+        tags: ["password", "security", "random"],
+    },
+    {
+        title: "Hash Generator",
+        slug: "hash-generator",
+        category: "Security",
+        description: "Generate SHA-256, SHA-512, and other hashes.",
+        tags: ["hash", "sha", "crypto"],
+    },
+    {
+        title: "API Key Generator",
+        slug: "api-key-generator",
+        category: "Security",
+        description: "Generate random API-style keys.",
+        tags: ["api", "key", "secret"],
+    },
+    {
+        title: "URL Encoder / Decoder",
+        slug: "url-encoder-decoder",
+        category: "Security",
+        description: "Encode and decode URL-safe strings.",
+        tags: ["url", "encode", "decode"],
+    },
 
-]
+    {
+        title: "JSON Formatter / Validator",
+        slug: "json-formatter",
+        category: "Code",
+        description: "Format, validate, and clean JSON.",
+        tags: ["json", "formatter", "validator"],
+    },
+    {
+        title: "Base64 Encoder / Decoder",
+        slug: "base64",
+        category: "Code",
+        description: "Encode and decode Base64 strings.",
+        tags: ["base64", "encode", "decode"],
+    },
+    {
+        title: "Code Diff Checker",
+        slug: "code-diff",
+        category: "Code",
+        description: "Compare two code snippets side by side.",
+        tags: ["diff", "compare", "code"],
+    },
+    {
+        title: "Markdown Previewer",
+        slug: "markdown-previewer",
+        category: "Code",
+        description: "Preview Markdown as formatted HTML.",
+        tags: ["markdown", "preview", "md"],
+    },
+    {
+        title: "Regex Tester",
+        slug: "regex-tester",
+        category: "Code",
+        description: "Test regular expressions against sample text.",
+        tags: ["regex", "regexp", "pattern"],
+    },
+
+    {
+        title: "Redundant CSS Remover",
+        slug: "css-cleaner",
+        category: "Frontend",
+        description: "Detect duplicate and redundant CSS rules.",
+        tags: ["css", "cleaner", "frontend"],
+    },
+    {
+        title: "CSS Minifier",
+        slug: "css-minifier",
+        category: "Frontend",
+        description: "Minify CSS for smaller output.",
+        tags: ["css", "minify", "frontend"],
+    },
+    {
+        title: "Color Picker",
+        slug: "color-picker",
+        category: "Frontend",
+        description: "Pick and convert HEX, RGB, and HSL colors.",
+        tags: ["color", "hex", "rgb"],
+    },
+    {
+        title: "Tailwind Class Sorter",
+        slug: "tailwind-sorter",
+        category: "Frontend",
+        description: "Sort Tailwind classes into a cleaner order.",
+        tags: ["tailwind", "css", "sort"],
+    },
+
+    {
+        title: "cURL Generator",
+        slug: "curl-generator",
+        category: "API",
+        description: "Build cURL commands from request inputs.",
+        tags: ["curl", "api", "request"],
+    },
+    {
+        title: "REST API Tester",
+        slug: "api-tester",
+        category: "API",
+        description: "Send HTTP requests and inspect responses.",
+        tags: ["rest", "api", "http"],
+    },
+    {
+        title: "Timestamp Converter",
+        slug: "timestamp-converter",
+        category: "API",
+        description: "Convert Unix timestamps to readable dates.",
+        tags: ["timestamp", "date", "time"],
+    },
+
+    {
+        title: "Word / Character Counter",
+        slug: "text-counter",
+        category: "Text",
+        description: "Count words, characters, lines, and spaces.",
+        tags: ["text", "counter", "words"],
+    },
+    {
+        title: "Case Converter",
+        slug: "case-converter",
+        category: "Text",
+        description: "Convert text between camelCase, snake_case, kebab-case, and more.",
+        tags: ["case", "text", "converter"],
+    },
+    {
+        title: "Duplicate Line Remover",
+        slug: "duplicate-line-remover",
+        category: "Text",
+        description: "Remove duplicate lines from text.",
+        tags: ["duplicates", "lines", "clean"],
+    },
+
+    {
+        title: "CSV to JSON Converter",
+        slug: "csv-to-json",
+        category: "Data",
+        description: "Convert CSV data into JSON.",
+        tags: ["csv", "json", "converter"],
+    },
+    {
+        title: "JSON to CSV Converter",
+        slug: "json-to-csv",
+        category: "Data",
+        description: "Convert JSON arrays into CSV.",
+        tags: ["json", "csv", "converter"],
+    },
+    {
+        title: "Fake Data Generator",
+        slug: "fake-data-generator",
+        category: "Data",
+        description: "Generate fake names, emails, addresses, and test data.",
+        tags: ["faker", "mock", "data"],
+    },
+
+    {
+        title: "PDF Merge / Split / Compress",
+        slug: "pdf-tools",
+        category: "PDF",
+        description: "Merge, split, and compress PDF files.",
+        tags: ["pdf", "merge", "split"],
+    },
+
+    {
+        title: "QR Code Generator",
+        slug: "qr-generator",
+        category: "QR",
+        description: "Generate QR codes from text or URLs.",
+        tags: ["qr", "code", "generator"],
+    },
+    {
+        title: "QR Code Reader",
+        slug: "qr-reader",
+        category: "QR",
+        description: "Read QR codes from uploaded images.",
+        tags: ["qr", "reader", "scan"],
+    },
+];
+
+export const categories = [
+    "All",
+    "Security",
+    "Code",
+    "Frontend",
+    "API",
+    "Text",
+    "Data",
+    "PDF",
+    "QR",
+] as const;

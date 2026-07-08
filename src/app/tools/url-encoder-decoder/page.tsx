@@ -1,27 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { FileJson, RotateCcw, Sparkles, Trash2 } from "lucide-react";
+import { ArrowDownUp, LinkIcon, Sparkles, Trash2 } from "lucide-react";
 
 import { ToolShell } from "@/components/tools/tool-shell";
 import { CopyButton } from "@/components/tools/copy-button";
-import { formatJson } from "@/lib/json/json-utils";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { decodeUrl, encodeUrl } from "@/lib/url/url-utils";
 
-const sampleJson = `{"name":"Dev Swiss Knife","type":"developer tools","features":["JSON formatter","JWT decoder","code diff checker"],"meta":{"privacyFirst":true,"runsInBrowser":true}}`;
+const sampleText =
+    "https://dev-swiss-knife.app/search?q=json formatter&category=developer tools";
 
-export default function JsonFormatterPage() {
-    const [input, setInput] = useState(sampleJson);
+export default function UrlEncoderDecoderPage() {
+    const [input, setInput] = useState(sampleText);
     const [output, setOutput] = useState("");
     const [error, setError] = useState("");
-    const [sortKeys, setSortKeys] = useState(false);
 
-    function handleFormat() {
-        const result = formatJson(input, {
-            spaces: 2,
-            sortKeys,
-        });
+    function handleEncode() {
+        const result = encodeUrl(input);
 
         if (!result.success) {
             setError(result.error);
@@ -30,13 +27,11 @@ export default function JsonFormatterPage() {
         }
 
         setError("");
-        setOutput(result.formatted);
+        setOutput(result.value);
     }
 
-    function handleMinify() {
-        const result = formatJson(input, {
-            sortKeys,
-        });
+    function handleDecode() {
+        const result = decodeUrl(input);
 
         if (!result.success) {
             setError(result.error);
@@ -45,7 +40,13 @@ export default function JsonFormatterPage() {
         }
 
         setError("");
-        setOutput(result.minified);
+        setOutput(result.value);
+    }
+
+    function handleSwap() {
+        setInput(output);
+        setOutput(input);
+        setError("");
     }
 
     function handleClear() {
@@ -55,23 +56,23 @@ export default function JsonFormatterPage() {
     }
 
     function handleLoadSample() {
-        setInput(sampleJson);
+        setInput(sampleText);
         setOutput("");
         setError("");
     }
 
     return (
         <ToolShell
-            title="JSON Formatter / Validator"
-            description="Format, minify, validate, and clean JSON data directly in your browser."
+            title="URL Encoder / Decoder"
+            description="Encode text into a URL-safe format or decode encoded URLs back into readable text."
         >
             <div className="grid gap-6 lg:grid-cols-2">
                 <section className="space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                         <div>
-                            <h2 className="text-sm font-medium text-foreground">Input JSON</h2>
+                            <h2 className="text-sm font-medium text-foreground">Input</h2>
                             <p className="text-sm text-muted-foreground">
-                                Paste raw or minified JSON here.
+                                Paste normal text, a URL, or encoded URL text.
                             </p>
                         </div>
 
@@ -91,33 +92,34 @@ export default function JsonFormatterPage() {
                         value={input}
                         onChange={(event) => setInput(event.target.value)}
                         spellCheck={false}
-                        placeholder='{"message":"Paste JSON here"}'
-                        className="min-h-[420px] resize-none rounded-2xl bg-background/70 font-mono text-sm leading-6"
+                        placeholder="Paste URL or text here..."
+                        className="min-h-[360px] resize-none rounded-2xl bg-background/70 font-mono text-sm leading-6"
                     />
 
                     <div className="flex flex-wrap items-center gap-3">
-                        <Button type="button" onClick={handleFormat} className="rounded-full">
-                            <FileJson className="mr-2 h-4 w-4" />
-                            Format
+                        <Button type="button" onClick={handleEncode} className="rounded-full">
+                            <LinkIcon className="mr-2 h-4 w-4" />
+                            Encode
                         </Button>
 
                         <Button
                             type="button"
                             variant="secondary"
-                            onClick={handleMinify}
+                            onClick={handleDecode}
                             className="rounded-full"
                         >
-                            <RotateCcw className="mr-2 h-4 w-4" />
-                            Minify
+                            Decode
                         </Button>
 
                         <Button
                             type="button"
-                            variant={sortKeys ? "default" : "outline"}
-                            onClick={() => setSortKeys((currentValue) => !currentValue)}
+                            variant="outline"
+                            onClick={handleSwap}
+                            disabled={!output}
                             className="rounded-full"
                         >
-                            Sort Keys
+                            <ArrowDownUp className="mr-2 h-4 w-4" />
+                            Swap
                         </Button>
 
                         <Button
@@ -143,7 +145,7 @@ export default function JsonFormatterPage() {
                         <div>
                             <h2 className="text-sm font-medium text-foreground">Output</h2>
                             <p className="text-sm text-muted-foreground">
-                                Valid JSON output appears here.
+                                Encoded or decoded output appears here.
                             </p>
                         </div>
 
@@ -154,8 +156,8 @@ export default function JsonFormatterPage() {
                         value={output}
                         readOnly
                         spellCheck={false}
-                        placeholder="Formatted JSON will appear here..."
-                        className="min-h-[420px] resize-none rounded-2xl bg-background/70 font-mono text-sm leading-6"
+                        placeholder="Output will appear here..."
+                        className="min-h-[360px] resize-none rounded-2xl bg-background/70 font-mono text-sm leading-6"
                     />
                 </section>
             </div>
